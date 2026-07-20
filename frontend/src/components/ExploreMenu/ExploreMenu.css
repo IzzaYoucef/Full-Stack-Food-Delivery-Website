@@ -1,0 +1,38 @@
+.Explore-menu {
+    display: grid; 
+    gap: 20px; 
+}  
+
+.title h2 {
+    font-size: vw;
+}
+
+.Explore-menu .items-of-menu {
+    display: flex; 
+    gap: 20px;
+    overflow: scroll;
+} 
+
+.items-of-menu .item {
+    text-align: center;
+    font-size: 18px; 
+    font-weight: 500;
+} 
+.items-of-menu .item img{
+    width: 8vw; 
+    border-radius: 50%;
+    cursor: pointer;
+}
+.items-of-menu::-webkit-scrollbar {
+    display: none;
+} 
+hr {
+    margin: 10px 0; 
+    height: 2px; 
+    color: #e2e2e2;
+}
+
+.items-of-menu .active {
+    border : solid 2px tomato ; 
+    padding: 4px;
+}

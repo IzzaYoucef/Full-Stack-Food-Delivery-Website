@@ -1,0 +1,50 @@
+.header { 
+    height: 38vw;   
+    background-image: url("/header_img.png");  
+    background-repeat: no-repeat;  
+    background-position: center; 
+    background-size: cover;
+    display: grid;   
+    position: relative;  
+    margin: 20px 0px;
+}
+
+.header .hearder-details {
+    position: absolute; 
+    bottom: 15px; 
+    padding: 20px 10px; 
+    gap: 10px; 
+    margin-left: 40px;  
+    animation: REFRESH 3s;
+}
+ 
+
+.hearder-details h2 {
+    font-size: 4vw ; 
+    font-weight: 500; 
+    color: white;
+} 
+
+.hearder-details p {
+    color: white; 
+    font-weight: 500;
+} 
+
+.hearder-details button { 
+    margin-top: 15px; 
+    padding: 10px 30px; 
+    text-align: center; 
+    border-radius: 50px;  
+    color: #8561e8;
+    border: solid 1px #ebc1eb; 
+    cursor: pointer;
+}
+
+@keyframes REFRESH {
+    0% {
+        opacity: 0;
+    } 
+    100% {
+        opacity: 1;
+    }
+}
