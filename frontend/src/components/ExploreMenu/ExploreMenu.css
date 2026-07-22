@@ -33,6 +33,6 @@ hr {
 }
 
 .items-of-menu .active {
-    border : solid 2px tomato ; 
+    border : solid 4px tomato ; 
     padding: 4px;
 }

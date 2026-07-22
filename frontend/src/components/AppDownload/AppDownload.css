@@ -1,0 +1,30 @@
+.download-information-content {
+    display: grid; 
+    margin: auto; 
+    place-items: center; 
+    margin-top: 50px;
+}
+
+.download-information-content h2 {
+    margin: auto auto; 
+    font-weight: 500; 
+    font-size: 40px;  
+    margin-bottom: 10px; 
+    text-align: center;
+    text-transform: capitalize;
+}
+.download-information-content .download-links {
+    display: flex; 
+    justify-content: space-between;  
+    gap: 20; 
+    margin-top: 10px;
+}
+.download-links img {
+    cursor: pointer; 
+    margin-left: 10px; 
+    transition: all .3 ease-in;
+}
+
+.download-links img:hover {
+    transform: scale(1.05);
+} 
