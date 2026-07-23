@@ -8,7 +8,7 @@ const Navbar = ({setShowState}) => {
   return (
     <div className='navbar'>
          <div className="logo">
-             <img src={assets.logo} alt="Logo" />
+            <Link to='/'><img src={assets.logo} alt="Logo" /></Link>
          </div> 
 
          <div className="navbar-menu">
@@ -23,7 +23,7 @@ const Navbar = ({setShowState}) => {
          <div className="rigth-nav"> 
             <img src={assets.search_icon} alt="search icon" /> 
             <div className="navbar-search-icon">
-              <img src={assets.basket_icon} alt="basket icon" />  
+              <Link to='/Cart'><img src={assets.basket_icon} alt="basket icon" /></Link>
               <div className="dot"></div>
             </div>
             <button className='sign-in' onClick={()=>setShowState(true)}>sign in</button>

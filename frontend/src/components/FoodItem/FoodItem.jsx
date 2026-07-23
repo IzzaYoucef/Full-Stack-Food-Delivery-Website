@@ -30,7 +30,7 @@ const FoodItem = ({ id, name, image, price, description }) => {
           <img src={assets.rating_starts} alt="rating stars" />
         </div> 
         <p className="descripton">{description}</p> 
-        <p className="price">{price}$</p>
+        <p className="price">{price}€</p>
       </div>
     </div>
   )
