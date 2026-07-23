@@ -10,7 +10,7 @@
 .Explore-menu .items-of-menu {
     display: flex; 
     gap: 20px;
-    overflow: scroll;
+    overflow-x: scroll;
 } 
 
 .items-of-menu .item {

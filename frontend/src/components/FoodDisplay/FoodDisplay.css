@@ -5,5 +5,5 @@
 .food-display .food-context {
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px; /* optional but usually wanted for spacing between cards */
+    gap: 20px; 
 }

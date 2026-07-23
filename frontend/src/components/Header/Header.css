@@ -1,5 +1,6 @@
 .header { 
-    height: 38vw;   
+    height: 38vw;    
+    width: 100%;
     background-image: url("/header_img.png");  
     background-repeat: no-repeat;  
     background-position: center; 
@@ -11,10 +12,10 @@
 
 .header .hearder-details {
     position: absolute; 
-    bottom: 15px; 
-    padding: 20px 10px; 
-    gap: 10px; 
-    margin-left: 40px;  
+    bottom: 10px; 
+    padding: 10px 10px; 
+    gap: 5px; 
+    margin-left: 10px;  
     animation: REFRESH 3s;
 }
  
@@ -22,7 +23,8 @@
 .hearder-details h2 {
     font-size: 4vw ; 
     font-weight: 500; 
-    color: white;
+    color: white; 
+    text-transform: capitalize;
 } 
 
 .hearder-details p {
@@ -37,7 +39,8 @@
     border-radius: 50px;  
     color: #8561e8;
     border: solid 1px #ebc1eb; 
-    cursor: pointer;
+    cursor: pointer; 
+    margin-right: 20px;
 }
 
 @keyframes REFRESH {
@@ -47,4 +50,34 @@
     100% {
         opacity: 1;
     }
-}
+} 
+
+@media(max-width:1050px) {
+
+    .hearder-details {
+        max-width: 55%;
+    }
+    .hearder-details p {
+        font-size: 15px; 
+    } 
+    .hearder-details h2 {
+        font-size:2w;
+    }
+} 
+
+@media(max-width:750px) {
+    .hearder-details {
+        max-width: 65%;  
+    } 
+    .hearder-details h2 {
+        font-size: 1cw;
+    }
+
+    .hearder-details p {
+        display: none; 
+    } 
+    .hearder-details button {
+        padding: 5px 15px ; 
+        font-size: 10px;
+    }
+} 
