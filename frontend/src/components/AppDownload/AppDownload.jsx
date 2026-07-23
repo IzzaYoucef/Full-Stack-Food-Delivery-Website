@@ -4,7 +4,7 @@ import { assets } from '../../assets/frontend_assets/assets'
 
 const AppDownload = () => {
   return (
-    <div className='download-information-content'>
+    <div className='download-information-content' id='mobile-app'>
         <h2>For Better Experience Download <br /><span>Tomato App</span></h2> 
         <div className="download-links">
             <img src={assets.play_store} alt="Google play" />
