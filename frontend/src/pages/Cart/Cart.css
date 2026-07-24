@@ -5,8 +5,9 @@
 }
 .cart-container .item-text-details {
     display: grid ; 
-    grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr 1fr; 
-    margin-bottom: 10px;
+    grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 1fr; 
+    margin-bottom: 10px; 
+    gap: 10px;
 }
 .cart-container hr {
     height: 2px; 
@@ -25,7 +26,7 @@
 } 
 .total-addition .left-side {
     display: grid; 
-    gap: 30px; 
+    gap: 15px; 
 }
 .total-addition .left-side div {
     display: flex; 
@@ -109,4 +110,18 @@ p.delivery {
 .right-side .promo-code {
     margin-top: 5px; 
     color: #808080;
-}
+} 
+@media(max-width:450px) {
+    .cart-container .item-text-details {
+        font-size: 12px; 
+    }
+    .right-side {
+        font-size: 12px; 
+    } 
+    .total-addition {
+        display: flex; 
+        flex-direction: column; 
+        gap:20px;    
+    }
+} 
+

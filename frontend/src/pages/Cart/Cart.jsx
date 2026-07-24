@@ -2,12 +2,14 @@ import React, { useContext, useState , useEffect } from 'react'
 import './Cart.css' 
 import { StoreContext } from '../../context/StoreContext'
 import { assets } from '../../assets/frontend_assets/assets';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => { 
 
   const {food_list, items, addToCard, removeFromCard, totalPrice, setTotalPrice} = useContext(StoreContext); 
-  const [dilevery , setDelivery] = useState(true) ;  
+  const [dilevery , setDelivery] = useState(true) ;   
   const [fees , setFees] = useState(0) ;
+  const navigate = useNavigate() ; 
     useEffect(() => {
         setFees(dilevery ? 2 : 0); 
     }, [dilevery]); 
@@ -46,30 +48,22 @@ const Cart = () => {
 
         <div className="total-addition">
             <div className="left-side"> 
-                <div className="dilevery-option">
-                    <div className="children" id='d'>
-                        <input type="radio" onClick={() => setDelivery(true)} name='c' id='d' /> 
-                        <p>Delivery</p>
-                    </div>
-                    <div className="children" id='nd'>
-                        <input type="radio"  onClick={() => setDelivery(false)} name='c' id='nd'/> 
-                        <p>Pick up</p>
-                    </div>
-                </div>
                 <h2>Cart totals</h2 > 
                 <div className="sub-total">
                     <p className='sub-total'>Subtotal</p> 
                     <p>{totalPrice} €</p> 
                 </div>
+                <hr />
                 <div className="fees" >
-                    <p className='fee'className={dilevery === true ? "" : "delivery"} >Deliver fees</p>  
-                    <p className={dilevery === true ? "" : "delivery"}>{fees} €</p>
-                </div> 
+                    <p >Deliver fees</p>  
+                    <p >{fees} €</p>
+                </div>
+                <hr /> 
                 <div className="total" >
                   <h2>Total</h2>  
-                  <h2>{totalPrice + fees}€</h2>
+                  <h2>{totalPrice === 0 ? totalPrice : totalPrice + fees}€</h2>
                 </div>
-                <button className='proceed-checkout'>Proceed to checkout</button>
+                <button className='proceed-checkout' onClick={()=>navigate('/order')} >Proceed to checkout</button>
             </div> 
             <div className="right-side">
                 <p className='promo-code'>If you have a promo code , Enter it here</p>

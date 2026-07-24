@@ -348,7 +348,7 @@ export const food_list = [
         description: "Food provides essential nutrients for overall health and well-being",
         category: "Noodles"
     } , {
-         _id: "32",
+         _id: "33",
         name: "Profiteroles",
         image: food_33,
         price: 14,

@@ -1,0 +1,48 @@
+.place-order {
+    margin-top: 40px; 
+    display: flex; 
+    justify-content: space-between;  
+    gap: 30px;  
+    align-items: start;  
+}  
+
+.place-order .left-side {
+    display: grid; 
+    gap: 30px;  
+} 
+.left-side .input-feilds  {
+    display: grid; 
+    gap: 20px;
+}
+ .left-side .input-feilds input {
+    width: 100%; 
+    padding: 10px; 
+    border: solid 1px #c9c9c9;  
+    outline: solid 1px tomato; 
+    border-radius: 5px;  
+}
+
+.input-feilds .multi-feilds {
+    display: flex; 
+    gap: 10px; 
+} 
+.place-order .total-addition {
+    width: 30%; 
+}
+.left-side p {
+    font-size: 20px; 
+    font-weight: 600; 
+    text-transform: capitalize;
+} 
+@media(max-width:800px) {
+    .place-order {
+        display: grid; 
+        gap: 30px;
+    } 
+    .left-side .input-feilds .multi-feilds { 
+        font-size: 15px;
+    } 
+    .place-order .total-addition {
+        width: 100%;
+    }
+}

@@ -66,4 +66,16 @@ button.btn {
 }
 .form-validation p {
     font-size: 15px;
+} 
+@media (max-width:700px) {
+    .form-validation {
+        font-size: 12px; 
+        width: 270px;
+    }
+}
+@media (max-width:450px) {
+    .form-validation {
+        font-size: 10px; 
+        width: 230px;
+    }
 }
