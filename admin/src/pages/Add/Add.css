@@ -1,0 +1,65 @@
+.add-container {
+    width: 60%; 
+    margin: 20px 0px 0px 30px; 
+    display: grid; 
+    gap: 20px; 
+}
+form {
+    width: 100%;
+}
+.add-container .info {
+    display: grid; 
+    gap: 10px;
+} 
+.add-container .upoald-image  img { 
+    width: 100xp; 
+} 
+.upoald-image input {
+    height: 100%; 
+    width: 100%;
+}
+.add-container .product-name input {
+    padding: 10px; 
+    border-radius: 5px; 
+    border: solid 1px #808080; 
+    width: 100%;   
+}
+.add-container .product-description textarea{
+    width: 100%; 
+    height: 150px;   
+    border: solid 1px #808080;  
+    border-radius: 5px ; 
+    padding: 10px; 
+} 
+.product-category-price {
+    display: flex; 
+    gap: 20px;  
+} 
+
+
+.product-category-price .price {
+    display: grid; 
+    gap: 5px; 
+    width: 40%;
+} 
+.product-category-price input {
+    padding: 10px;  
+    width: 80%;
+}
+.add-container button {
+    padding: 10px 20px; 
+    text-transform: uppercase; 
+    background-color: black; 
+    color: #fff; 
+    cursor: pointer; 
+
+}
+.category { 
+    width: 50%; 
+    display: grid; 
+    gap: 5px;
+}
+
+.category select {
+    padding: 10px;
+}

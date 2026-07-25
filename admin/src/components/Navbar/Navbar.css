@@ -1,0 +1,12 @@
+.nav-bar .images{
+    display: flex; 
+    justify-content: space-between; 
+    padding: 4px 4%;
+}
+.nav-bar .images .logo {
+    width: 120px; 
+} 
+.nav-bar .images img:nth-child(2) {
+    border-radius: 50px; 
+    width: 70px;
+}
