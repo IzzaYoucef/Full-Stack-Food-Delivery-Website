@@ -1,7 +1,8 @@
 import express from "express"; 
 import cors from "cors" 
 import { connectDb } from "./config/db.js"; 
-import foodRouter from "./routes/foodRoute.js";
+import foodRouter from "./routes/foodRoute.js"; 
+
 // create an instance of the app
 const app = express(); 
 const PORT = 4000 ;  
