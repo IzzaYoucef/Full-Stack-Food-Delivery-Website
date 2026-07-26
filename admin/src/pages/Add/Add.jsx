@@ -5,6 +5,7 @@ import { useState } from "react";
 import { data } from "react-router-dom";
 import { useEffect } from "react"; 
 import axios from "axios";
+import { toast } from "react-toastify";
 const Add = () => {
   const [image, setImage] = useState(false);
   const [foods , setFoods] = useState({
@@ -28,10 +29,10 @@ const onsubmitHandler = async (event) => {
   formData.append("description", foods.description);
   formData.append("price", foods.price); 
   formData.append("category", foods.category); 
-  formData.append("image", image); // ✅ fixed: use the `image` state, not foods.image
+  formData.append("image", image);
 
   const axiosResponse = await axios.post(`${url}/api/food/add`, formData);
-  if (axiosResponse.data.success) { // also see note below
+  if (axiosResponse.data.success) { 
     console.log("formData sent Successfully"); 
     setFoods({
       name: "", 
@@ -39,9 +40,11 @@ const onsubmitHandler = async (event) => {
       price: 0,
       category: "salad" 
     }); 
-    setImage(false); 
+    setImage(false);  
+    toast.success("Food added successfully") ; 
   } else {
-    console.log("NOPE, OOPS Something wrong"); // also see note below
+    console.log("NOPE, OOPS Something wrong");
+    toast.error(axiosResponse.data.message)
   }
 }
   useEffect(()=>{
@@ -70,20 +73,21 @@ const onsubmitHandler = async (event) => {
 
         <div className="product-name info">
           <p>Product name</p>
-          <input onChange={addClickHandler} type="text" name="name" placeholder="type here" />
+          <input onChange={addClickHandler} value={foods.name} type="text" name="name" placeholder="type here" />
         </div>
         <div className="product-description info">
           <p>product description</p>
           <textarea
             name="description"
             placeholder="Write content here" 
-            onChange={addClickHandler}
+            onChange={addClickHandler} 
+            value={foods.description}
           ></textarea>
         </div>
         <div className="product-category-price ">
           <div className="category">
             <p>Product category</p>
-            <select name="category" id="category" onChange={addClickHandler}>
+            <select name="category" id="category" value={foods.category} onChange={addClickHandler}>
               <option value="salad">Salad</option>
               <option value="roll">Roll</option>
               <option value="pasta">Pasta</option>
@@ -94,7 +98,7 @@ const onsubmitHandler = async (event) => {
           </div>
           <div className="price">
             <p>Product price</p>
-            <input type="number" onChange={addClickHandler} required name="price" placeholder="$20" />
+            <input type="number" value={foods.price} onChange={addClickHandler} required name="price" placeholder="$20" />
           </div>
         </div>
         <button className="add" >Add</button>
