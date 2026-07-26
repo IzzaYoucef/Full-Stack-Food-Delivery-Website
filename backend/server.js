@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors" 
 import { connectDb } from "./config/db.js"; 
 import foodRouter from "./routes/foodRoute.js"; 
-
+import userRouter from "./routes/userRoute.js"; 
+import "dotenv/config"
 // create an instance of the app
 const app = express(); 
 const PORT = 4000 ;  
@@ -16,8 +17,12 @@ connectDb();
 
 
 // food Routes  
-app.use("/api/food" ,foodRouter)
-// run rhe server
+app.use("/api/food" ,foodRouter); 
+app.use("/images" , express.static("uploads")); 
+
+// User Routes
+app.use("/api/user" , userRouter);
+// run rhe server 
 app.get("/" , (req , res)=> {
     res.send("API works")
 })
