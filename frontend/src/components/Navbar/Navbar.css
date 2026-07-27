@@ -45,6 +45,53 @@ ul .active{
     
 } 
 .navbar-search-icon img {
+    cursor: pointer; 
+} 
+.nav-user-profile {
+    position: relative;  
+} 
+.nav-user-profile .profile-icon{
+    cursor: pointer;
+}
+.nav-option-details {
+    display: none;
+}
+ .nav-user-profile:hover .nav-option-details { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    position: absolute;
+    right: 0;
+    background-color: #fff2ef;   
+    padding: 10px;
+    z-index: 1; 
+    border: 1px solid tomato;
+}  
+hr {
+    height: 1px;
+}
+.nav-option-details ul {
+    list-style: none; 
+    display: flex; 
+    align-items: center; 
+    flex-direction: column; 
+    
+}  
+li img {
+    width: 20px; 
+    height: 20px;
+} 
+ul li { 
+    display: flex; 
+    gap: 5px;
+    text-decoration: none ; 
+}  
+
+
+li p {
+    color: tomato;
+}
+ul img {
     cursor: pointer;
 }
 @media (max-width:1050px) {
