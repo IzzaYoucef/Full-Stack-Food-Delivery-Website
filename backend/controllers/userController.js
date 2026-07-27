@@ -56,7 +56,8 @@ const loginUser = async (req , res) => {
         const token = createTocken(user._id) ;  
         return res.json({
             success:true , 
-            message:`Welcome ${user.name}`
+            message:`Welcome ${user.name}`,
+            token:token
         })
 
     }catch(error){
