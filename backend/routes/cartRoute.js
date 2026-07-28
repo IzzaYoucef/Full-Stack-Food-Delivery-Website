@@ -11,6 +11,6 @@ const cardRouter = express.Router() ;
 
 cardRouter.post("/add" , authMiddleWare , addToCart) ; 
 cardRouter.post("/remove", authMiddleWare , removeFromCard); 
-cardRouter.get("/list" , authMiddleWare , getListData) ; 
+cardRouter.post("/list" , authMiddleWare , getListData) ; 
 
 export default cardRouter ; 

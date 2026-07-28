@@ -5,6 +5,8 @@ import foodRouter from "./routes/foodRoute.js";
 import userRouter from "./routes/userRoute.js"; 
 import "dotenv/config"
 import cardRouter from "./routes/cartRoute.js";
+
+import orderRouter from "./routes/orderRoute.js";
 // create an instance of the app
 const app = express(); 
 const PORT = 4000 ;  
@@ -24,8 +26,12 @@ app.use("/images" , express.static("uploads"));
 // User Routes
 app.use("/api/user" , userRouter); 
 
-// cart rout 
-app.use("/api/cart" , cardRouter);
+// cart Routes
+app.use("/api/cart" , cardRouter); 
+
+// order Routes 
+app.use("/api/palceorder", orderRouter);
+
 // run rhe server 
 app.get("/" , (req , res)=> {
     res.send("API works")

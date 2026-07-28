@@ -31,8 +31,8 @@ const removeFromCard = async (req , res) => {
         if(cartData[req.body.itemId] > 0) {
             cartData[req.body.itemId] -= 1 ;  
         }
-     await userModel.findByIdAndUpdate(req.body.id , {cartData}) ;
-     res.json({success:false , message:"Removed item"}) ;
+     await userModel.findByIdAndUpdate(req.body.userId , {cartData}) ;
+     res.json({success:true , message:"Removed item"}) ;
     } catch (error) {
         res.json({success:false , message:error.message}) ;
     }
@@ -42,7 +42,7 @@ const getListData = async (req , res) => {
     try{
         const userData = await userModel.findOne({_id:req.body.userId}) ;   
         const cartData = await userData.cartData ; 
-        res.json({message:true , cartData});
+        res.json({success:true , cartData});
     }catch(error){
         res.json({success:false , message:error.message}) ;
     }
