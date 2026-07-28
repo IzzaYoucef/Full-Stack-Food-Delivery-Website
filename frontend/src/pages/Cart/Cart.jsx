@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 const Cart = () => { 
 
-  const {food_list, items, addToCard, removeFromCard, totalPrice, setTotalPrice , url} = useContext(StoreContext); 
+  const {food_list, items, addToCard, removeFromCard, totalPrice, setTotalPrice , url , token} = useContext(StoreContext);  
   const [dilevery , setDelivery] = useState(true) ;   
   const [fees , setFees] = useState(0) ;
-  const navigate = useNavigate() ; 
+  const navigate = useNavigate() ;  
+
+  
     useEffect(() => {
         setFees(dilevery ? 2 : 0); 
     }, [dilevery]); 
@@ -29,7 +31,7 @@ const Cart = () => {
                 if (items[item._id] > 0) {
                   return (
                   <> 
-                   <div className="added-item item-text-details" key={item._id}>
+                   <div className="added-item item-text-details" key={index}>
                       <img src={`${url}/images/${item.image}`} alt="item image" />
                       <p>{item.name}</p>
                       <p>{item.price}</p>
@@ -41,7 +43,6 @@ const Cart = () => {
                   </>
                   )
                 }
-                return <></>
      
             })}
         </div>  

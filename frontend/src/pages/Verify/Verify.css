@@ -1,0 +1,22 @@
+.verify {
+    height: 60vh; 
+    display: grid;
+}
+.spiner {
+    height: 100px; 
+    width: 100px; 
+    border: solid 4px #bababa; 
+    border-top-color: tomato ; 
+    place-self: center;
+    animation: rotate 1s infinite; 
+    border-radius:50% ;
+}
+@keyframes rotate { 
+    100%{
+        transform: rotate(360deg);
+    }
+    0%{
+        transform: rotate(360);
+    }
+    
+}

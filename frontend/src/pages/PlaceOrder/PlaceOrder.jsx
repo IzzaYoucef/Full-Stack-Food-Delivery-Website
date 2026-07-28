@@ -1,33 +1,84 @@
-import React, { useContext } from "react";
+import React, { useContext , useEffect, useState } from "react";
 import "./PlaceOrder.css";
 import { StoreContext } from "../../context/StoreContext";
+import axios from "axios";
 const PlaceOrder = () => {
-  const { totalPrice } = useContext(StoreContext);
+  const { totalPrice , food_list , items ,  token  , url  } = useContext(StoreContext); 
+
+  const [clientData , setClientData] = useState({
+    firstName:"", 
+    lastName:"" , 
+    email:"", 
+    adress:"" , 
+    city:"" , 
+    state:"" , 
+    zipCode:"", 
+    country:"" ,
+    phone:""
+  }) ;  
+
+  const onchangeHanler = (e) => {
+    let name = e.target.name; 
+    let value = e.target.value ; 
+    setClientData((prev)=>({...prev , [name]:value})) ;
+  } 
+ 
+
+  const placeOrder = async (event) => {
+    event.preventDefault() ; 
+
+    let orederList = [] ; 
+    food_list.map((item)=> {
+      if(items[item._id] > 0){ 
+        let temp = item ; 
+        temp["quantity"] = items[item._id] ; 
+        orederList.push(item); 
+      }
+    }) ; 
+    let orderData = {
+      address:clientData,
+      items:orederList , 
+      price:totalPrice
+    }
+
+    const axiosRespose = await axios.post(url+"/api/palceorder/place", orderData , {headers:{token}});
+    if(axiosRespose.data.success) {
+      const {session_url} = axiosRespose.data ; 
+      window.location.replace(session_url);
+    }else{
+      console.log(axiosRespose.data);
+    }
+  }
+  useEffect(()=> {
+    console.log(clientData);
+  }, [clientData])
+
   return (
-    <div className="place-order">
+   <form >
+     <div className="place-order">
       <div className="left-side">
         <p className="title">Delivery information</p>
         <div className="input-feilds">
           <div className="multi-feilds">
-            <input type="text" placeholder="Firset name" />
-            <input type="text" placeholder="Last name" />
+            <input type="text" name="firstName" onChange={(e)=>onchangeHanler(e)} required  placeholder="Firset name" />
+            <input type="text" name="lastName" onChange={(e)=>onchangeHanler(e)}  required placeholder="Last name" />
           </div>
           <div>
-            <input type="text" placeholder="Email adress" />
+            <input type="text" name="email" onChange={(e)=>onchangeHanler(e)} required placeholder="Email adress" />
           </div>
           <div>
-            <input type="text" placeholder="Street" />
+            <input type="text" name="adress" onChange={(e)=>onchangeHanler(e)} required placeholder="Street" />
           </div>
           <div className="multi-feilds">
-            <input type="text" placeholder="City" />
-            <input type="text" placeholder="State" />
+            <input type="text" name="city" onChange={(e)=>onchangeHanler(e)} required placeholder="City" />
+            <input type="text" name="state" onChange={(e)=>onchangeHanler(e)} required placeholder="State" />
           </div>
           <div className="multi-feilds">
-            <input type="text" placeholder="Zip code" />
-            <input type="text" placeholder="Country" />
+            <input type="text" name="zipCode" onChange={(e)=>onchangeHanler(e)} required placeholder="Zip code" />
+            <input type="text" name="counrty" onChange={(e)=>onchangeHanler(e)} required placeholder="Country" />
           </div>
           <div>
-            <input type="text" placeholder="Phone" />
+            <input type="text" name="phone" onChange={(e)=>onchangeHanler(e)} placeholder="Phone" />
           </div>
         </div>
       </div>
@@ -46,10 +97,11 @@ const PlaceOrder = () => {
             <h2>Total</h2>
             <h2>{totalPrice}€</h2>
           </div>
-          <button className="proceed-checkout">Proceed to payment</button>
+          <button className="proceed-checkout" onClick={(e)=>placeOrder(e)}>Proceed to payment</button>
         </div>
       </div>
     </div>
+   </form>
   );
 };
 

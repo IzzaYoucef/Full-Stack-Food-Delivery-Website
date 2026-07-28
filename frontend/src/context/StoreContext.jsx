@@ -11,17 +11,32 @@ const StoreContextProvider = (props) => {
     const [food_list , setFood_List] = useState([]) ; 
     const url = "http://localhost:4000" ; 
 
-    const addToCard = (productId) => {
+    const addToCard = async (productId) => {
         if (!items[productId]) {
             setItems((prev) => ({ ...prev, [productId]: 1 }));
         } else {
             setItems((prev) => ({ ...prev, [productId]: prev[productId] + 1 }));
+        } 
+
+        if(token) {
+            await axios.post(`${url}/api/cart/add`, {itemId:productId} , {headers:{token}}) ; 
         }
     }
 
-    const removeFromCard = (productId) => {
-        setItems((prev) => ({ ...prev, [productId]: prev[productId] - 1 }));
-    } 
+    const removeFromCard = async (productId) => {
+        setItems((prev) => ({ ...prev, [productId]: prev[productId] - 1 })); 
+        if(token){
+           const response =  await axios.post(url+"/api/cart/remove" , {itemId:productId} , {headers:{token}}); 
+            console.log(response);
+        }
+    }  
+
+    const loadData = async (token) => {
+        const response = await axios.post(url + "/api/cart/list", {}, {headers: {token}});
+        if (response.data.success) {
+            setItems(response.data.cartData || {});
+        }
+    }
     const getTotalPrice = () => {
         let totalPrice = 0 ; 
         for(const key in items) {
@@ -51,11 +66,15 @@ const StoreContextProvider = (props) => {
         console.log(items) ; 
     } , [items]) ; 
 
-    useEffect(()=> {
-        if(localStorage.getItem("token")) {
-            setToken(localStorage.getItem("token"))
-        } 
-        fetchFoodList();
+    useEffect(()=> { 
+       async function getFromDataBase() {
+            await fetchFoodList();
+            if(localStorage.getItem("token")) {
+                setToken(localStorage.getItem("token")) ; 
+                await loadData(localStorage.getItem("token"));
+            } 
+       }  
+       getFromDataBase();
     }, [])
 
     const contextValue = {
