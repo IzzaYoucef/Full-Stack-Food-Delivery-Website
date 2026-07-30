@@ -65,7 +65,7 @@ const PlaceOrder = () => {
   }, [clientData])
 
   return (
-   <form >
+   <form onSubmit={(e)=>placeOrder(e)} >
      <div className="place-order">
       <div className="left-side">
         <p className="title">Delivery information</p>
@@ -102,13 +102,13 @@ const PlaceOrder = () => {
           </div> 
           <div className="fees">
             <p className="fee">Deliver fees</p>
-            <p>0 €</p>
+            <p>2 €</p>
           </div>
           <div className="total">
             <h2>Total</h2>
-            <h2>{totalPrice}€</h2>
+            <h2>{totalPrice+2}€</h2>
           </div>
-          <button className="proceed-checkout" onClick={(e)=>placeOrder(e)}>Proceed to payment</button>
+          <button type="submit" className="proceed-checkout" >Proceed to payment</button>
         </div>
       </div>
     </div>

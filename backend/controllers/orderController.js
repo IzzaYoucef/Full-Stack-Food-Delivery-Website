@@ -48,6 +48,7 @@ const verifyPaiment = async (req, res) => {
     try {
         const { orderId, success } = req.body;
         if (success === "true") {
+            await orderModel.findByIdAndUpdate(orderId , {payment:true})
             res.json({ success: true, message: "Paiment accepted" });
         } else {
             await orderModel.findByIdAndDelete(orderId);
@@ -58,13 +59,29 @@ const verifyPaiment = async (req, res) => {
     }
 }; 
 
-const userOrders = async (req , res) => {
-    const userOrders = await orderModel.find({userId:req.body.userId}) ; 
+const userOrders = async (req, res) => {
     try {
-        res.json({success:true , data:userOrders}) ;
-    }catch(error) {
-        res.json({success:false , data:error.message});
+        const orders = await orderModel.find({ userId: req.body.userId });
+        res.json({ success: true, data: orders });
+    } catch (error) {
+        res.json({ success: false, data: error.message });
     }
 }
+const getAllorders = async (req , res)=>{
+    try{
+        const orders = await orderModel.find({}); 
+        res.json({success:true , data:orders});
+    }catch(error){
+        res.json({success:false , data:error.message});
+    }
+} 
 
-export { placeOrder , verifyPaiment  , userOrders };
+const updateOrderStatus = async (req , res) => {
+    try {
+        await orderModel.findByIdAndUpdate(req.body.orderId , {status:req.body.status}) ; 
+        res.json({success:true , message:"Status Updated"});
+    }catch(error){
+        res.json({status:false , message:"Error"});
+    }
+}
+export { placeOrder , verifyPaiment  , userOrders  ,getAllorders , updateOrderStatus};

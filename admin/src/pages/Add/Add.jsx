@@ -93,7 +93,8 @@ const onsubmitHandler = async (event) => {
               <option value="pasta">Pasta</option>
               <option value="sandwich">Sandwich</option>
               <option value="desert">Dessert</option>
-              <option value="cake">Cake</option>
+              <option value="cake">Cake</option> 
+              <option value="Pure Veg">Pure Veg</option>
             </select>
           </div>
           <div className="price">

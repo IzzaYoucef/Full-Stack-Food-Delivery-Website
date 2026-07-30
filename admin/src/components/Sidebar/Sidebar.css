@@ -32,6 +32,10 @@
 }
 @media(max-width:900px) {
     .sidebar p {
-        display: none;
+        display: none; 
+        width: 15%;
+    }
+    .sidebar-options {
+        font-size: 12px;
     }
 }
