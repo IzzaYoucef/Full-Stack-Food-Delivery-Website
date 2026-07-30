@@ -41,9 +41,10 @@ const PlaceOrder = () => {
       price:totalPrice
     }
 
-    const axiosRespose = await axios.post(url+"/api/palceorder/place", orderData , {headers:{token}});
+    const axiosRespose = await axios.post(url+"/api/order/place", orderData , {headers:{token}});
     if(axiosRespose.data.success) {
-      const {session_url} = axiosRespose.data ; 
+      const {session_url} = axiosRespose.data ;  
+      console.log(axiosRespose.data);
       window.location.replace(session_url);
     }else{
       console.log(axiosRespose.data);

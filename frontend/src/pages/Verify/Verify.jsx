@@ -13,13 +13,18 @@ const orderId = searchParams.get("orderId");
 const { url } = useContext(StoreContext);
 
 const verify = async () => {
-    const response = await axios.post(url + "/api/placeorder/verify", { orderId, success });
+// Verify.jsx
+const response = await axios.post(url + "/api/order/verify", { orderId, success });    
     if (success === "true") {
-        navigate("/");
+        navigate("/myOrders");
     } else {
-        navigate("/"); // or a real failure route
+        navigate("/");
     }
 };
+
+useEffect(()=>{
+    verify();
+}, [])
   return (
     <div className='verify'>
         <div className="spiner">

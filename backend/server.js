@@ -30,7 +30,7 @@ app.use("/api/user" , userRouter);
 app.use("/api/cart" , cardRouter); 
 
 // order Routes 
-app.use("/api/palceorder", orderRouter);
+app.use("/api/order", orderRouter);
 
 // run rhe server 
 app.get("/" , (req , res)=> {
