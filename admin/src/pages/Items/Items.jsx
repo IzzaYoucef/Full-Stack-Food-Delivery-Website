@@ -9,7 +9,7 @@ const Items = ({url}) => {
   const fetchList = async () => {
     const axiosResponse =  await axios.get(`${url}/api/food/list`) ; 
     console.log(axiosResponse.data);  
-    if(axiosResponse.data.seccess) {
+    if(axiosResponse.data.success) {
       console.log("sccess") ; 
       setList(axiosResponse.data.data) ; 
     } else{
@@ -18,7 +18,8 @@ const Items = ({url}) => {
   } 
 
   useEffect(()=> {
-    fetchList(); 
+    fetchList();  
+    console.log(list);
   } , []); 
 
   const handleRemoveFood = async (foodId)=>{ 
