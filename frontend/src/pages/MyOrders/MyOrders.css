@@ -21,3 +21,13 @@
     border: none;  
     width: 40%;
 }
+@media(max-width:900px) {
+    .my-orders {
+        display: grid; 
+        grid-template-columns: 1fr 2fr 1fr; 
+        font-size: 12px;
+    }
+    .my-orders-order button {
+        font-size: 12px;
+    }
+}

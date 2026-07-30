@@ -12,7 +12,8 @@ const Navbar = ({setShowState}) => {
     localStorage.removeItem("token") ; 
     setToken("");  
     navigate('/')
-  }
+  } 
+
   return (
     <div className='navbar'>
          <div className="logo">
@@ -40,7 +41,7 @@ const Navbar = ({setShowState}) => {
                   <img src={assets.profile_icon} className='profile-icon' alt="profile icon" /> 
                   <div className="nav-option-details">
                     <ul>
-                      <li><img src={assets.bag_icon} alt="" />Orders</li> 
+                      <li onClick={()=>navigate('/myOrders')} ><img src={assets.bag_icon}  alt="" />Orders</li> 
                       <hr />
                       <li onClick={logOut} ><img src={assets.logout_icon} alt=""  />Logout</li>  
                     </ul>

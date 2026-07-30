@@ -1,7 +1,8 @@
 import React, { useContext , useEffect, useState } from "react";
 import "./PlaceOrder.css";
 import { StoreContext } from "../../context/StoreContext";
-import axios from "axios";
+import axios from "axios"; 
+import {useNavigate} from 'react-router-dom'
 const PlaceOrder = () => {
   const { totalPrice , food_list , items ,  token  , url  } = useContext(StoreContext); 
 
@@ -49,7 +50,16 @@ const PlaceOrder = () => {
     }else{
       console.log(axiosRespose.data);
     }
-  }
+  } 
+  const navigate = useNavigate()
+  useEffect(()=>{ 
+    if(!token){
+      navigate('/cart');
+    }else if(totalPrice === 0) {
+      navigate('/cart')
+    }
+
+  } , [token])
   useEffect(()=> {
     console.log(clientData);
   }, [clientData])
