@@ -9,7 +9,7 @@ import cardRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 // create an instance of the app
 const app = express(); 
-const PORT = 4000 ;  
+ 
 
 // middleware 
 app.use(express.json()) ; 
@@ -36,6 +36,6 @@ app.use("/api/order", orderRouter);
 app.get("/" , (req , res)=> {
     res.send("API works")
 })
-app.listen( PORT, ()=> {
-    console.log(`Server is running on http://localhost:${PORT}`) ;
+app.listen( process.env.PORT, ()=> {
+    console.log(`Server is running on http://localhost:${process.env.PORT}`) ;
 })
