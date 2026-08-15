@@ -22,7 +22,7 @@ const Add = () => {
   } 
 
 const onsubmitHandler = async (event) => { 
-  const url = "http://localhost:4000"; 
+  const url = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000"; 
   event.preventDefault(); 
   const formData = new FormData(); 
   formData.append("name", foods.name);

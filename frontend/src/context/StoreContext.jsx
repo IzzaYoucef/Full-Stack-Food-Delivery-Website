@@ -9,7 +9,7 @@ const StoreContextProvider = (props) => {
     const [totalPrice , setTotalPrice] = useState(0) ;
     const [token , setToken] = useState("");     
     const [food_list , setFood_List] = useState([]) ; 
-    const url = "http://localhost:4000" ; 
+    const url = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000" ; 
 
     const addToCard = async (productId) => {
         if (!items[productId]) {
