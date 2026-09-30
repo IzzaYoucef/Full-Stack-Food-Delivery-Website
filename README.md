@@ -15,7 +15,7 @@ Create `backend/.env`:
 
 ```env
 PORT=4000
-MONGODB_URI=mongodb://db:27017/food-delivery
+MONGODB_URI=mongodb://db:27017/food-delivery // i will past thé data base uro if it's necessary to will be able to run in any device
 JWT_SECRET=your_secret
 STRIPE_SECRET_KEY=sk_test_xxxxxxxx
 ```
