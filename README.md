@@ -1,11 +1,70 @@
-# Full-Stack-Food-Delivery-Website
-In Order to practice my information in web dev , i create a full stack food delivery wenbsite using MERN Stack (Mongo db , Express Js , React js and Node js) 
-# Project roadmap dev
-* Handle addToCard and removeFromCrad  of a food item logic , combining 2 hooks , useState() and useContext() i manaeged all food data in my frontend side I've also added a css style for better user Expeiance . Next Goal => Respensive home page
-* Responsive Home page  , add sign in and sign uo Logic 
-* Add cart and place order pages , handle price and add or remove the article , two responsive pages .
-* Add a part of admin panel , upload the item , and view the list items , also repensive
-* add the backend of the application starting with food model and dataBase connection , food controllers functions and routes  and link tem with the frontend,
-* add user authentication system for the sign up and sign in , with a logic and link it with the frontend , i got a problem of token ,  so the token generated in the backend response but not in the token state variable => "to resolve them tommoro"
-* Mange orders , store them in the Data Base , link them with the fronted
-* Display the user orders in the user page and in the admin panel , manage the dilevery State and correct the payment issue
+# Full-Stack Food Delivery Website
+
+A food delivery app built with the MERN stack (MongoDB, Express, React, Node.js). Customers can browse the menu, manage a cart, sign up, and pay with Stripe. An admin panel manages the menu and orders.
+
+## Tech Stack
+
+- **Frontend / Admin:** React 19, Vite, React Router, Axios
+- **Backend:** Node.js, Express 5, Mongoose, JWT, Multer, Stripe
+- **Database:** MongoDB
+- **DevOps:** Docker, Docker Compose
+
+## Setup
+
+Create `backend/.env`:
+
+```env
+PORT=4000
+MONGODB_URI=mongodb://db:27017/food-delivery
+JWT_SECRET=your_secret
+STRIPE_SECRET_KEY=sk_test_xxxxxxxx
+```
+
+## Run with Docker
+
+```bash
+docker compose up --build
+```
+
+Run in the background:
+
+```bash
+docker compose up --build -d
+```
+
+Stop:
+
+```bash
+docker compose down
+```
+
+Stop and delete data:
+
+```bash
+docker compose down -v
+```
+
+## URLs
+
+- Website: http://localhost:5173
+- Admin panel: http://localhost:5174
+- API: http://localhost:4000
+
+## Run without Docker
+
+```bash
+# backend (set MONGODB_URI=mongodb://localhost:27017/food-delivery in .env)
+cd backend && npm install && npm run server
+
+# frontend
+cd frontend && npm install && npm run dev
+
+# admin
+cd admin && npm install && npm run dev
+```
+
+## Notes
+
+- The database starts empty. Add dishes from the admin panel first.
+- Test Stripe card: `4242 4242 4242 4242`.
+- `compose.yml` must use `MONGODB_URI` and `VITE_BACKEND_URL` (not `DB_URL` / `VITE_API_URL`) and include an `admin` service on port `5174`.
