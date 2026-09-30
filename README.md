@@ -44,12 +44,6 @@ Stop and delete data:
 docker compose down -v
 ```
 
-## URLs
-
-- Website: http://localhost:5173
-- Admin panel: http://localhost:5174
-- API: http://localhost:4000
-
 ## Run without Docker
 
 ```bash
