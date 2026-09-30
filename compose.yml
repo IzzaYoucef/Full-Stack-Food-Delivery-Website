@@ -38,7 +38,7 @@ services:
     depends_on:
       - api
     ports:
-      - "5174:5173"
+      - "5174:5174"
     environment:
       VITE_BACKEND_URL: http://localhost:4000
     volumes:
