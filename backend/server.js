@@ -1,12 +1,19 @@
 import "dotenv/config"
 import express from "express";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 import { connectDb } from "./config/db.js";
 import foodRouter from "./routes/foodRoute.js";
 import userRouter from "./routes/userRoute.js";
 import cardRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 
+// tell the developer right away if the .env file is missing or incomplete
+const missingEnv = ["MONGODB_URI", "JWT_SECRET", "STRIPE_SECRET_KEY"].filter((k) => !process.env[k]);
+if (missingEnv.length) {
+    console.warn(`\n>>> Missing in backend/.env: ${missingEnv.join(", ")}  (copy backend/.env.example to backend/.env and fill it in)\n`);
+}
 
 // create an instance of the app
 const app = express();
@@ -33,7 +40,7 @@ app.use(async (req, res, next) => {
 
 // food Routes
 app.use("/api/food", foodRouter);
-app.use("/images", express.static("uploads"));
+app.use("/images", express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), "uploads")));
 
 // User Routes
 app.use("/api/user", userRouter);
@@ -47,7 +54,6 @@ app.use("/api/order", orderRouter);
 // Local development only: Vercel imports the exported app and runs it itself
 if (!process.env.VERCEL) {
     const PORT = process.env.PORT || 4000;
-    connectDb().catch(() => {}); // connect right away; the error is already printed by connectDb
     app.listen(PORT, () => {
         console.log(`Server is running on http://localhost:${PORT}`);
     })

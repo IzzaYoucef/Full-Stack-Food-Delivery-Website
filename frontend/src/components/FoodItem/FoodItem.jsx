@@ -9,7 +9,7 @@ const FoodItem = ({ id, name, image, price, description }) => {
   return (
     <div className='food-item'>
       <div className="food-item-image-container">
-        <img src={`${url}/images/${image}`} alt={`${name} Image`} />
+        <img src={image.startsWith("data:") ? image : `${url}/images/${image}`} alt={`${name} Image`} />
         {!items[id] 
           ? <img 
               src={assets.add_icon_white} 

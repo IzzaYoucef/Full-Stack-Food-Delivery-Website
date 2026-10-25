@@ -32,7 +32,7 @@ const Cart = () => {
                   return (
                   <> 
                    <div className="added-item item-text-details" key={index}>
-                      <img src={`${url}/images/${item.image}`} alt="item image" />
+                      <img src={item.image.startsWith("data:") ? item.image : `${url}/images/${item.image}`} alt="item image" />
                       <p>{item.name}</p>
                       <p>{item.price}</p>
                       <p>{items[item._id]}</p>

@@ -3,17 +3,21 @@ import multer from "multer"
 import fs from "fs"
 
 const addFood = async (req , res)=>{
-    let image_fileName = `${req.file.filename}` ;  
-    
-    const food = new foodModel({
-        name:req.body.name,
-        description:req.body.description,
-        price:req.body.price,
-        image:image_fileName , 
-        category:req.body.category
-    }) ;  
-
     try{
+        if (!req.file) {
+            return res.json({success:false , message:"Please choose an image"});
+        }
+        // disk upload -> file name ; memory upload (Vercel) -> the image itself as a data URL
+        const image_fileName = req.file.filename
+            ?? `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}` ;
+
+        const food = new foodModel({
+            name:req.body.name,
+            description:req.body.description,
+            price:req.body.price,
+            image:image_fileName ,
+            category:req.body.category
+        }) ;
         await food.save(); 
         res.json({success:true , message:"Food added to the Data Base"}) ; 
     }catch(error){
@@ -35,7 +39,8 @@ const removeItem = async (req , res)=> {
 
     try {
         const food = await foodModel.findById(req.body.id) ; 
-        fs.unlink(`uploads/${food.image}` , ()=>{}) ;
+        // images stored as data URLs (Vercel) have no file to delete
+        if (food && !food.image.startsWith("data:")) fs.unlink(`uploads/${food.image}` , ()=>{}) ;
         await foodModel.findByIdAndDelete(req.body.id) ; 
         res.json({success:true , message:"food has been deleted"})
     }catch(error){
