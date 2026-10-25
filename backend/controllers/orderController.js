@@ -3,10 +3,12 @@ import orderModel from "../models/orderModel.js";
 import Stripe from "stripe";
 import { response } from "express";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+// created on first use: a missing key must not crash the whole API at startup
+let stripe;
+const getStripe = () => (stripe ??= new Stripe(process.env.STRIPE_SECRET_KEY));
 
 const placeOrder = async (req, res) => {
-    const frontend_url = "http://localhost:5173";
+    const frontend_url = process.env.FRONTEND_URL || "http://localhost:5173";
 
     try {
         const newOrder = new orderModel({
@@ -30,7 +32,7 @@ const placeOrder = async (req, res) => {
             quantity: item.quantity,
         }));
 
-        const session = await stripe.checkout.sessions.create({
+        const session = await getStripe().checkout.sessions.create({
             line_items: line_items,
             mode: "payment",
             success_url: `${frontend_url}/verify?success=true&orderId=${newOrder._id}`,
