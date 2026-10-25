@@ -31,14 +31,18 @@ const LoginPopup = ({showState , setShowState}) => {
         }
 
         e.preventDefault(); 
-        const axiosResponse = await axios.post(`${newURL}` , userData);    
+        try {
+            const axiosResponse = await axios.post(`${newURL}` , {...userData , email:userData.email.trim()});
 
-        if(axiosResponse.data.success){
-            setToken(axiosResponse.data.token) ;
-            localStorage.setItem("token" , axiosResponse.data.token);    
-            setShowState(false);
-        }else{
-            window.alert(axiosResponse.data);
+            if(axiosResponse.data.success){
+                localStorage.setItem("token" , axiosResponse.data.token);
+                setToken(axiosResponse.data.token) ;
+                setShowState(false);
+            }else{
+                window.alert(axiosResponse.data.message);
+            }
+        } catch (error) {
+            window.alert("Cannot reach the server, please try again");
         }
     } 
 
@@ -59,11 +63,11 @@ const LoginPopup = ({showState , setShowState}) => {
                 {currentState === "SignUp" 
                 ?<div className="form-login-pop-up-buttons" id="sign-in">
                     <input type="text" name="name"  onChange={(e)=>handleOnchangeEvent(e)} placeholder="Your name" required /> 
-                    <input type="text" name="email" onChange={(e)=>handleOnchangeEvent(e)} placeholder="Your email" required />  
+                    <input type="email" name="email" autoCapitalize="none" onChange={(e)=>handleOnchangeEvent(e)} placeholder="Your email" required />  
                     <input type="password" name="password" onChange={(e)=>handleOnchangeEvent(e)} placeholder="Your password" required />
                 </div> :  
                 <div className="form-login-pop-up-buttons" id="login">
-                    <input type="email" name="email" onChange={(e)=>handleOnchangeEvent(e)} placeholder="Your email" required/> 
+                    <input type="email" name="email" autoCapitalize="none" onChange={(e)=>handleOnchangeEvent(e)} placeholder="Your email" required/> 
                     <input type="password" name="password" onChange={(e)=>handleOnchangeEvent(e)} placeholder="Your password" required />
                 </div>
                 }

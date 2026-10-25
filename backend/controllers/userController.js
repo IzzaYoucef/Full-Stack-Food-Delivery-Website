@@ -8,15 +8,19 @@ const createTocken = (id)=>{
     return jwt.sign({id} , process.env.JWT_SECRET )
 }
 
+// phones often capitalise the first letter or add a space: ignore case and spaces
+const findByEmail = (email) => userModel.findOne({ email }).collation({ locale: "en", strength: 2 });
+
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, password } = req.body;
+    const email = (req.body.email || "").trim();
 
     if (!validator.isEmail(email)) {
       return res.json({ success: false, message: "Email not valid" });
     }
 
-    const exists = await userModel.findOne({ email });
+    const exists = await findByEmail(email);
     if (exists) {
       return res.json({ success: false, message: "Email already exists in the system" });
     }
@@ -36,7 +40,7 @@ const registerUser = async (req, res) => {
 
     const savedUser = await user.save(); 
     const token = createTocken(savedUser._id) ; 
-    return res.json({ success: true, user: savedUser , token:token });
+    return res.json({ success: true, token:token });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
@@ -44,8 +48,9 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req , res) => {
     try {
-        const {email , password} = req.body ;  
-        const user = await userModel.findOne({email}) ;  
+        const {password} = req.body ;
+        const email = (req.body.email || "").trim() ;
+        const user = await findByEmail(email) ;  
         if(!user) {
             return res.json({success:false , message:"User not found"}); 
         } 

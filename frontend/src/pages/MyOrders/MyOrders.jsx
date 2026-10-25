@@ -10,8 +10,12 @@ const MyOrders = () => {
     const [data, setData] = useState([]);
 
     const fetchOrders = async () => {
-        const response = await axios.post(url + "/api/order/userOrders", {}, { headers: { token } });
-        setData(response.data.data);
+        try {
+            const response = await axios.post(url + "/api/order/userOrders", {}, { headers: { token } });
+            setData(Array.isArray(response.data.data) ? response.data.data : []);
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
     useEffect(() => {

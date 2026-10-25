@@ -1,37 +1,48 @@
+.my-orders {
+    margin-top: 20px;
+}
+.my-orders h2 {
+    font-weight: 600;
+    padding: 20px;
+}
 .my-orders-list .my-orders-order {
-    display: flex; 
+    display: grid;
+    grid-template-columns: 50px 2fr 1fr 1fr 1.5fr 1fr;
     gap: 20px;
-    padding: 15px; 
-    margin: 20px 15px;  
-    border: 1px solid gray; 
+    padding: 15px;
+    margin: 20px 15px;
+    border: 1px solid gray;
     align-items: center;
 }
-.my-orders{
-    margin-top: 20px;
-} 
 .my-orders img {
     width: 50px;
-} 
-.my-orders-order p {
-    width: 50%;
-} 
-.my-orders-order button{
-    padding: 10px 25px; 
-    cursor: pointer; 
-    border: none;  
-    width: 40%;
 }
-@media(max-width:900px) {
-    .my-orders {
-        display: grid; 
-        grid-template-columns: 1fr 2fr 1fr; 
-        font-size: 12px;
+.my-orders-order p {
+    overflow-wrap: anywhere;
+}
+.my-orders-order button {
+    padding: 10px 25px;
+    cursor: pointer;
+    border: none;
+}
+
+/* phones / small tablets: one card = image on the left, details stacked on the right */
+@media (max-width: 900px) {
+    .my-orders-list .my-orders-order {
+        grid-template-columns: 50px 1fr;
+        gap: 10px 15px;
+        margin: 15px 0;
+        font-size: 14px;
+    }
+    .my-orders-order > img {
+        grid-row: 1 / span 5;
+        align-self: start;
+    }
+    .my-orders-order > :not(img) {
+        grid-column: 2;
     }
     .my-orders-order button {
+        justify-self: start;
         font-size: 12px;
     }
-} 
-.my-orders h2 {
-    font-weight: 600; 
-    padding: 20px;
 }

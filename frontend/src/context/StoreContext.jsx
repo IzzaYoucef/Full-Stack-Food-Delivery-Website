@@ -7,9 +7,15 @@ const StoreContextProvider = (props) => {
 
     const [items, setItems] = useState({}); 
     const [totalPrice , setTotalPrice] = useState(0) ;
-    const [token , setToken] = useState("");     
+    const [token , setToken] = useState(localStorage.getItem("token") || "");     
     const [food_list , setFood_List] = useState([]) ; 
     const url = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000" ; 
+
+    const logout = () => {
+        localStorage.removeItem("token");
+        setToken("");
+        setItems({});
+    }
 
     const addToCard = async (productId) => {
         if (!items[productId]) {
@@ -19,22 +25,35 @@ const StoreContextProvider = (props) => {
         } 
 
         if(token) {
-            await axios.post(`${url}/api/cart/add`, {itemId:productId} , {headers:{token}}) ; 
+            try {
+                await axios.post(`${url}/api/cart/add`, {itemId:productId} , {headers:{token}}) ;
+            } catch (error) {
+                console.log(error.message);
+            }
         }
     }
 
     const removeFromCard = async (productId) => {
         setItems((prev) => ({ ...prev, [productId]: prev[productId] - 1 })); 
         if(token){
-           const response =  await axios.post(url+"/api/cart/remove" , {itemId:productId} , {headers:{token}}); 
-            console.log(response);
+            try {
+                await axios.post(url+"/api/cart/remove" , {itemId:productId} , {headers:{token}});
+            } catch (error) {
+                console.log(error.message);
+            }
         }
     }  
 
     const loadData = async (token) => {
-        const response = await axios.post(url + "/api/cart/list", {}, {headers: {token}});
-        if (response.data.success) {
-            setItems(response.data.cartData || {});
+        try {
+            const response = await axios.post(url + "/api/cart/list", {}, {headers: {token}});
+            if (response.data.success) {
+                setItems(response.data.cartData || {});
+            } else {
+                logout(); // invalid / expired token or deleted user
+            }
+        } catch (error) {
+            console.log(error.message); // network problem: keep the session
         }
     }
     const getTotalPrice = () => {
@@ -49,13 +68,13 @@ const StoreContextProvider = (props) => {
     } 
 
     const fetchFoodList = async () => {
-        const axiosResponse = await axios.get(`${url}/api/food/list`) ; 
-
-        if(axiosResponse.data.success) {
-            console.log(axiosResponse.data) ; 
-            setFood_List(axiosResponse.data.data); 
-        }else {
-            console.log("Axios faild") ; 
+        try {
+            const axiosResponse = await axios.get(`${url}/api/food/list`) ;
+            if(axiosResponse.data.success) {
+                setFood_List(axiosResponse.data.data);
+            }
+        } catch (error) {
+            console.log(error.message);
         }
 
     }
@@ -66,16 +85,14 @@ const StoreContextProvider = (props) => {
         console.log(items) ; 
     } , [items]) ; 
 
-    useEffect(()=> { 
-       async function getFromDataBase() {
-            await fetchFoodList();
-            if(localStorage.getItem("token")) {
-                setToken(localStorage.getItem("token")) ; 
-                await loadData(localStorage.getItem("token"));
-            } 
-       }  
-       getFromDataBase();
+    useEffect(()=> {
+        fetchFoodList();
     }, [])
+
+    // load the saved cart at startup and right after every login
+    useEffect(()=> {
+        if(token) loadData(token);
+    }, [token])
 
     const contextValue = {
         food_list,
@@ -86,6 +103,7 @@ const StoreContextProvider = (props) => {
         setTotalPrice , 
         token , 
         setToken ,
+        logout ,
         url
     }
 
