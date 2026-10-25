@@ -7,6 +7,7 @@ import userRouter from "./routes/userRoute.js";
 import cardRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 
+
 // create an instance of the app
 const app = express();
 
@@ -46,6 +47,7 @@ app.use("/api/order", orderRouter);
 // Local development only: Vercel imports the exported app and runs it itself
 if (!process.env.VERCEL) {
     const PORT = process.env.PORT || 4000;
+    connectDb().catch(() => {}); // connect right away; the error is already printed by connectDb
     app.listen(PORT, () => {
         console.log(`Server is running on http://localhost:${PORT}`);
     })

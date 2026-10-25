@@ -5,20 +5,23 @@ import { response } from "express";
 
 // created on first use: a missing key must not crash the whole API at startup
 let stripe;
-const getStripe = () => (stripe ??= new Stripe(process.env.STRIPE_SECRET_KEY));
+const getStripe = () => {
+    if (!process.env.STRIPE_SECRET_KEY) throw new Error("STRIPE_SECRET_KEY is not set in the backend environment");
+    return (stripe ??= new Stripe(process.env.STRIPE_SECRET_KEY));
+};
 
 const placeOrder = async (req, res) => {
     const frontend_url = process.env.FRONTEND_URL || "http://localhost:5173";
 
+    let newOrder;
     try {
-        const newOrder = new orderModel({
+        newOrder = new orderModel({
             userId: req.body.userId,
             items: req.body.items,
             address: req.body.address,
             price: req.body.price
         });
         await newOrder.save();
-        await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
 
         // Construction de la ligne de commande pour Stripe
         const line_items = req.body.items.map((item) => ({
@@ -39,9 +42,13 @@ const placeOrder = async (req, res) => {
             cancel_url: `${frontend_url}/verify?success=false&orderId=${newOrder._id}`,
         });
 
+        // the cart is emptied only once the payment page really exists
+        await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
         res.json({ success: true, session_url: session.url });
     } catch (error) {
         console.log(error);
+        // do not leave an unpaid order behind when Stripe failed
+        if (newOrder) await orderModel.findByIdAndDelete(newOrder._id).catch(() => {});
         res.json({ success: false, message: error.message });
     }
 }; 

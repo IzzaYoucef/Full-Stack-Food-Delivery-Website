@@ -86,7 +86,7 @@ const PlaceOrder = () => {
           </div>
           <div className="multi-feilds">
             <input type="text" name="zipCode" onChange={(e)=>onchangeHanler(e)} required placeholder="Zip code" />
-            <input type="text" name="counrty" onChange={(e)=>onchangeHanler(e)} required placeholder="Country" />
+            <input type="text" name="country" onChange={(e)=>onchangeHanler(e)} required placeholder="Country" />
           </div>
           <div>
             <input type="text" name="phone" onChange={(e)=>onchangeHanler(e)} placeholder="Phone" />
