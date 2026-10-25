@@ -1,5 +1,4 @@
 # Full-Stack Food Delivery Website
-https://full-stack-employee-management-syst-pi.vercel.app/leave
 A food delivery app built with the MERN stack (MongoDB, Express, React, Node.js). Customers can browse the menu, manage a cart, sign up, and pay with Stripe. An admin panel manages the menu and orders.
 
 ## Tech Stack
